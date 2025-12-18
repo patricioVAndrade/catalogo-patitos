@@ -1,0 +1,22 @@
+# Archivos de sistema y Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Bases de datos y Excel (Información Sensible)
+*.db
+*.sqlite3
+*.xlsx
+*.csv
+
+# Ejecutables y binarios
+*.exe
+cloudflared.exe
+
+# Entornos virtuales (si usas)
+venv/
+env/
+.env
+
+*.tmp.driveupload
+.tmp.driveupload
