@@ -20,3 +20,7 @@ env/
 
 *.tmp.driveupload
 .tmp.driveupload
+
+setup_db.py
+cargar_stock.py
+migrar_stocl.py
