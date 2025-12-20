@@ -3,7 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 
 # --- CONFIGURACIÓN ---
-MI_TELEFONO = "5493582432556" # Tu número (sin +)
+MI_TELEFONO = "5493582405263" # Tu número (sin +)
 # ---------------------
 
 def formato_moneda(valor):
