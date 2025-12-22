@@ -1,3 +1,48 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.getElementsByClassName('product-card');
+    // --- 1. FUNCIÓN DE BÚSQUEDA ---
+    function performSearch() {
+        const query = searchInput.value.toLowerCase().trim();
+
+        Array.from(cards).forEach(card => {
+            const name = card.getAttribute('data-name').toLowerCase();
+            const category = card.getAttribute('data-category').toLowerCase();
+            const visibleText = card.innerText.toLowerCase(); 
+
+            if (name.includes(query) || category.includes(query) || visibleText.includes(query)) {
+                card.style.display = ''; // Mostrar (quita el display:none)
+            } else {
+                card.style.display = 'none'; // Ocultar
+            }
+        });
+    }
+
+    // --- 2. EVENTO AL TECLEAR (Lo que ya tenías) ---
+    searchInput.addEventListener('input', performSearch);
+
+    // --- 3. CORRECCIÓN DEL ERROR F5 (¡ESTO ES LO NUEVO!) ---
+    // Al cargar la página, forzamos una revisión:
+    // Si el navegador guardó texto, filtramos. Si está vacío, mostramos todo.
+    function forzarReseteo() {
+        // Solo si el buscador está visualmente vacío
+        if (searchInput.value.trim() === "") {
+            Array.from(cards).forEach(card => {
+                // Forzamos la propiedad de estilo para asegurarnos que se vea
+                card.style.removeProperty('display');
+                card.style.display = ''; 
+            });
+        } else {
+            // Si el navegador recordó el texto, aplicamos el filtro de nuevo
+            performSearch();
+        }
+    }
+    forzarReseteo();
+
+    setTimeout(forzarReseteo, 50);
+    setTimeout(forzarReseteo, 100);
+});
+
 $(document).ready(function () {
     
     // Inicializar DataTables (Buscador y Paginación)
@@ -25,6 +70,13 @@ $(document).ready(function () {
     $('#buscadorPropio').on('keyup', function () {
         table.search(this.value).draw();
     });
+
+    var estadoGuardado = table.state.loaded();
+    
+    if (estadoGuardado && estadoGuardado.search && estadoGuardado.search.search) {
+        // Si hay una búsqueda guardada, la escribimos en el input para que coincida
+        $('#buscadorPropio').val(estadoGuardado.search.search);
+    }
 
     // Scroll suave hacia arriba al cambiar de página
     table.on('page.dt', function () {
