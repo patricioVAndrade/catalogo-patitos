@@ -110,7 +110,7 @@ function abrirZoom(el) {
 })();
 
 // Nueva función para el Dropdown Personalizado
-function aplicarFiltro(elemento, categoria) {
+function aplicarFiltro(elemento, criterio) {
     // 1. Actualizar el texto del botón principal
     const textoSeleccionado = $(elemento).text().trim();
     $('#btnFiltro span').text(textoSeleccionado);
@@ -119,14 +119,65 @@ function aplicarFiltro(elemento, categoria) {
     $('.dropdown-item').removeClass('active bg-light text-primary');
     $(elemento).addClass('active bg-light text-primary');
 
-    // 3. Aplicar el filtro en DataTables
+    // 3. Resetear filtros anteriores de DataTables
     var table = $('#tablaCatalogo').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    
-    if (categoria !== "") {
+    $.fn.dataTable.ext.search.pop(); // Sacamos filtros viejos
+
+    // 4. Aplicar la lógica según qué botón apretaron
+    if (criterio === 'SPECIAL_OFERTA') {
+        // FILTRO DE OFERTAS
         $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).find('.badge-categoria').text() === categoria;
+            // Buscamos el atributo data-es-oferta en la tarjeta
+            const esOferta = $(table.row(dataIndex).node()).find('.card-producto').attr('data-es-oferta');
+            return esOferta === 'si'; // Solo mostramos si dice 'si'
+        });
+
+    } else if (criterio === 'SPECIAL_NUEVO') {
+        // FILTRO DE NUEVOS
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            const esNuevo = $(table.row(dataIndex).node()).find('.card-producto').attr('data-es-nuevo');
+            return esNuevo === 'si';
+        });
+
+    } else if (criterio !== "") {
+        // FILTRO NORMAL (CATEGORÍA)
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            // Busamos el texto dentro del badge de categoría
+            const categoriaFila = $(table.row(dataIndex).node()).find('.badge-categoria').text().trim();
+            return categoriaFila === criterio;
         });
     }
+
+    // 5. Redibujar la tabla con el nuevo filtro aplicado
     table.draw();
+}
+
+// Función para filtros especiales (Oferta / Nuevo)
+function aplicarFiltroEspecial(tipo) {
+    const cards = document.querySelectorAll('.product-card');
+    
+    // Actualizar texto del botón
+    let texto = "";
+    if(tipo === 'oferta') texto = "🔥 Ofertas Imperdibles";
+    if(tipo === 'nuevo') texto = "✨ Novedades";
+    $('#btnFiltro span').text(texto);
+
+    cards.forEach(card => {
+        let mostrar = false;
+        
+        if (tipo === 'oferta') {
+            // Buscamos si dentro de la tarjeta hay un elemento con la clase badge-oferta
+            // O podemos usar un atributo data. Vamos a usar el texto visual por simplicidad.
+            if (card.innerHTML.includes("OFERTA")) mostrar = true;
+        } else if (tipo === 'nuevo') {
+            // Buscamos si tiene la cinta ribbon-nuevo
+            if (card.querySelector('.ribbon-nuevo')) mostrar = true;
+        }
+
+        if (mostrar) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 }

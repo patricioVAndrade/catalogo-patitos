@@ -53,6 +53,19 @@
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 fw-bold text-danger" href="#" onclick="aplicarFiltro(this, 'SPECIAL_OFERTA')">
+                                🔥 Ofertas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 fw-bold text-warning" href="#" onclick="aplicarFiltro(this, 'SPECIAL_NUEVO')">
+                                🆕 Novedades
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        
                         
                         {% for cat in categorias %}
                         <li>
@@ -88,7 +101,16 @@
                 {% set theme_idx = loop.index0 % 4 %}
                 <tr>
                     <td>
-                        <div class="card card-producto tema-{{ theme_idx }}">
+                        <div class="card card-producto tema-{{ theme_idx }} position-relative overflow-hidden" 
+                             data-name="{{ p.nombre }}" 
+                             data-category="{{ p.categoria }}"
+                             data-es-oferta="{{ 'si' if p.es_oferta else 'no' }}"
+                             data-es-nuevo="{{ 'si' if p.es_nuevo else 'no' }}">
+                            
+                            {% if p.es_nuevo %}
+                                <div class="ribbon-nuevo">¡NUEVO!</div>
+                            {% endif %}
+
                             <div class="card-body-flex">
                                 
                                 <div class="img-container" 
@@ -105,13 +127,37 @@
                                     <div>
                                         <span class="badge-categoria">{{ p.categoria }}</span>
                                         <div class="titulo-prod">{{ p.nombre }}</div>
-                                        </div>
+                                    </div>
                                     
-                                    <a href="https://wa.me/{{ telefono_ventas }}?text=Hola!%20Quisiera%20consultar%20disponibilidad%20de:%20{{ p.nombre }}%20(Cód:%20{{ p.codigo }})" 
-                                       class="btn btn-whatsapp"
-                                       target="_blank">
-                                        <i class="bi bi-whatsapp"></i> Consultar Disponibilidad
-                                    </a>
+                                    <div class="mt-2 align-self-stretch align-self-md-center flex-shrink-0">
+    
+                                        {% if p.es_oferta %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between gap-3">
+                                                
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <p class="mb-0 text-danger fw-bold fs-4" style="line-height: 1;">
+                                                        ${{ p.precio_fmt }}
+                                                    </p>
+                                                    <span class="badge bg-danger mt-1" style="font-size: 0.7em;">OFERTA 🔥</span>
+                                                </div>
+
+                                                <a href="https://wa.me/{{ telefono_ventas }}?text=Hola!%20Me%20interesa%20la%20OFERTA%20de:%20{{ p.nombre }}%20(Cód:%20{{ p.codigo }})" 
+                                                class="btn btn-whatsapp py-1 px-3"
+                                                style="font-size: 0.9rem;"
+                                                target="_blank">
+                                                    <i class="bi bi-whatsapp"></i> Consultar
+                                                </a>
+                                            </div>
+
+                                        {% else %}
+                                            <a href="https://wa.me/{{ telefono_ventas }}?text=Hola!%20Quisiera%20consultar%20disponibilidad%20de:%20{{ p.nombre }}%20(Cód:%20{{ p.codigo }})" 
+                                            class="btn btn-whatsapp d-block ms-auto"
+                                            target="_blank">
+                                                <i class="bi bi-whatsapp"></i> Consultar Disponibilidad
+                                            </a>
+                                        {% endif %}
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -135,7 +181,6 @@
                 <p><i class="bi bi-geo-alt-fill text-danger"></i> <strong>Nuestro Local:</strong></p>
                 <p>Av 9 de Julio 255, Coronel Moldes, Córdoba<br>
                 (Lunes a Sábado de 9:00 a 13:00 y 17:00 a 21:00)</p>
-                    
             </div>
         </div>
     </footer>

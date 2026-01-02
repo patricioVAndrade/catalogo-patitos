@@ -335,3 +335,30 @@ body.modal-open {
     box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15) !important; /* Sombra rojiza suave */
     border-color: #ffcccc !important;
 }
+
+/* Cinta de NOVEDAD */
+.ribbon-nuevo {
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    width: 120px;
+    background-color: #ffca28; /* Amarillo */
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 0;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* Etiqueta de OFERTA */
+.badge-oferta {
+    background-color: #ff4757;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
