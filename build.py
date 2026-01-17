@@ -72,6 +72,17 @@ def formato_moneda(valor):
     except:
         return str(valor)
 
+def sanitizar_texto(texto):
+    """
+    Limpia el texto para que sea seguro en atributos HTML.
+    Reemplaza comillas dobles por el símbolo de pulgadas (″)
+    """
+    if not texto:
+        return ""
+    # Reemplazar comillas dobles por símbolo de pulgadas
+    texto = str(texto).replace('"', '″')  # ″ es el símbolo correcto de pulgadas
+    return texto
+
 def buscar_y_copiar_foto(nombre_foto):
     """Busca la foto en las carpetas de scraping y la copia a static/img"""
     if not nombre_foto or str(nombre_foto).lower() in ['nan', 'none', '']: 
@@ -142,7 +153,7 @@ def main():
 
     for index, row in df.iterrows():
         codigo = str(row.get('codigo', '')).strip()
-        nombre = str(row.get('nombre', '')).strip()
+        nombre = sanitizar_texto(str(row.get('nombre', '')).strip())
         categoria = str(row.get('categoria', '')).strip()
         
         # --- CÁLCULO DE PRECIO ---
