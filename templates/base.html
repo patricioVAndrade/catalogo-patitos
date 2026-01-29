@@ -4,12 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta property="og:title" content="Patito's Bebe - Catálogo">
-    <meta property="og:description" content="Consulta disponibilidad de nuestros juguetes.">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Patito's Bebe - Juguetería y artículos para bebés en Coronel Moldes, Córdoba. Encontrá juguetes, cochecitos, cunas, ropa de bebé, librería y más. ¡Ofertas y novedades!">
+    <meta name="keywords" content="juguetería Coronel Moldes, artículos para bebés, juguetes, cochecitos, cunas, ropa de bebé, librería, Patito's Bebe, Córdoba, juguetes didácticos, bebés">
+    <meta name="author" content="Patito's Bebe">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Patito's Bebe | Juguetería y Artículos para Bebés en Coronel Moldes">
+    <meta property="og:description" content="Tu juguetería de confianza en Coronel Moldes, Córdoba. Juguetes, artículos para bebés, librería y más. ¡Consultá nuestro catálogo!">
     <meta property="og:image" content="static/img/portada.jpg">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Patito's Bebe | Juguetería en Coronel Moldes">
+    <meta name="twitter:description" content="Juguetería y artículos para bebés en Coronel Moldes, Córdoba.">
 
-    <title>Patito's Bebe</title>
+    <title>Patito's Bebe | Juguetería y Artículos para Bebés en Coronel Moldes, Córdoba</title>
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Patito's Bebe",
+        "description": "Juguetería y artículos para bebés en Coronel Moldes, Córdoba",
+        "url": "https://www.patitosbebe.com.ar/",
+        "telephone": "+54 358 240 5970",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. 9 de Julio 255",
+            "addressLocality": "Coronel Moldes",
+            "addressRegion": "Córdoba",
+            "addressCountry": "AR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "-33.6167",
+            "longitude": "-64.6000"
+        },
+        "priceRange": "$$",
+        "image": "static/img/logo_nuevo.png",
+        "sameAs": [
+            "https://wa.me/543582405970",
+            "https://www.instagram.com/patitosbebe/",
+            "https://www.facebook.com/PatitosBebeOficial/"
+        ]
+    }
+    </script>
     <link rel="icon" type="image/png" href="static/img/favicon.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
@@ -23,7 +67,8 @@
 
     <nav class="navbar navbar-juguete sticky-top">
         <div class="container flex-column justify-content-center text-center">
-            <img src="static/img/logo_nuevo.png" alt="Patito's Bebe" class="marca-logo">
+            <img src="static/img/logo_nuevo.png" alt="Patito's Bebe - Juguetería y Artículos para Bebés en Coronel Moldes, Córdoba" class="marca-logo">
+            <h1 class="visually-hidden">Patito's Bebe - Catálogo de Juguetes y Artículos para Bebés</h1>
             <span class="fecha-update"><i class="bi bi-clock"></i> {{ fecha_actualizacion }}</span>
         </div>
     </nav>
